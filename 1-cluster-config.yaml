@@ -3,7 +3,7 @@ kind: ClusterConfig
 
 metadata:
   name: ue4-pixelsteraming-gaming-eks
-  region: ap-south-1
+  region: us-east-1
 
 nodeGroups:
   - name: ng-cpu-group01
