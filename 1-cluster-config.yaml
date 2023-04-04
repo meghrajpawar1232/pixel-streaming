@@ -8,9 +8,9 @@ metadata:
 nodeGroups:
   - name: ng-cpu-group01
     instanceType: m5.large
-    #desiredCapacity: 1
-    #minSize: 1
-    #maxSize: 2
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 4
     labels: 
       app.pixel/turn: "true"
       app.pixel/envoy: "true"
@@ -19,9 +19,9 @@ nodeGroups:
       publicKeyName: test-user
   - name: ng-gpu-group01
     instanceType: g4dn.xlarge
-    #desiredCapacity: 1
-    #minSize: 1
-    #maxSize: 2
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 4
     labels: 
        app.pixel/streamer: "true"
     taints:
