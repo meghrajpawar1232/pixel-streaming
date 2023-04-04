@@ -1,0 +1,42 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/component: unrealengine
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: stream-autoscaler
+    app.kubernetes.io/part-of: ue4-on-eks
+    app.kubernetes.io/version: 0.0.1
+  name: stream-autoscaler
+  namespace:  kube-system
+spec:
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 30
+    scaleUp:
+      policies:
+      - periodSeconds: 15
+        type: Pods
+        value: 2
+      - periodSeconds: 15
+        type: Percent
+        value: 10
+      stabilizationWindowSeconds: 0
+  maxReplicas: 2
+  metrics:
+  - object:
+      describedObject:
+        apiVersion: v1
+        kind: Service
+        name: matchmaker
+      metric:
+        name: player_stream_pool_ratio
+      target:
+        type: Value
+        value: 0.9
+    type: Object
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: stream

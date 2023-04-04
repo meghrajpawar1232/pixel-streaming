@@ -1,0 +1,28 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: streamer
+spec:
+  selector:
+    app: streamer
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+  externalIPs: 
+    - 192.168.43.218
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: streamer
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1beta1
+    kind: Deployment
+    name: streamer
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 50
