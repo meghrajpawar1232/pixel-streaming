@@ -120,9 +120,9 @@ spec:
         image: ghcr.io/oracle-quickstart/oke-unreal-pixel-streaming/kubetools:latest
         imagePullPolicy: Always
         name: annotation-agent
-        resources:
-          requests:
-            cpu: 5m
+#        resources:
+#          requests:
+#            cpu: 5m
       serviceAccountName: stream-svc-account
       terminationGracePeriodSeconds: 60
       tolerations:
