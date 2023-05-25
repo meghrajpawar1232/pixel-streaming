@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: scale-up-cronjob
+  namespace: ue4
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: internal-kubectl
+          containers:
+          - name: scale-up
+            image: meghrajpawar9923/scale-up
+            env:
+            - name: PROMETHEUS_URL
+              value: http://a8797ea28a45a4532b1add81a9ea195a-326072300.us-east-1.elb.amazonaws.com:8080
+          restartPolicy: OnFailure
